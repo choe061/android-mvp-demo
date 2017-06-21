@@ -6,8 +6,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.choi.tapp.R;
-import com.example.choi.tapp.domain.User;
-import com.example.choi.tapp.widget.OnItemClickListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

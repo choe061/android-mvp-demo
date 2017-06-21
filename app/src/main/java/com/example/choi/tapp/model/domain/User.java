@@ -1,4 +1,4 @@
-package com.example.choi.tapp.domain;
+package com.example.choi.tapp.model.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

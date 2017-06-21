@@ -12,7 +12,7 @@ import com.bumptech.glide.RequestManager;
 import com.example.choi.tapp.R;
 import com.example.choi.tapp.adapter.contact.GithubUserAdapterContact;
 import com.example.choi.tapp.adapter.viewholder.GithubUserViewHolder;
-import com.example.choi.tapp.domain.User;
+import com.example.choi.tapp.model.domain.User;
 import com.example.choi.tapp.widget.OnItemClickListener;
 
 import java.util.ArrayList;

@@ -1,11 +1,12 @@
-package com.example.choi.tapp.view.main.presenter;
+package com.example.choi.tapp.base.main.presenter;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.choi.tapp.adapter.contact.GithubUserAdapterContact;
-import com.example.choi.tapp.domain.User;
+import com.example.choi.tapp.model.domain.User;
+import com.example.choi.tapp.model.repository.UserRepository;
 import com.example.choi.tapp.network.ApiCallback;
-import com.example.choi.tapp.network.service.MainService;
 import com.example.choi.tapp.widget.OnItemClickListener;
 
 import java.util.ArrayList;
@@ -21,8 +22,10 @@ import retrofit2.Response;
 
 public class MainPresenter implements MainContact.Presenter, OnItemClickListener {
 
-    private MainService mainService;
-    private MainContact.View view;
+    private static final String TAG = MainPresenter.class.getName();
+
+    private UserRepository userRepository;
+    private MainContact.View view;          //데이터를 받아 view를 수정
 
     private GithubUserAdapterContact.Model adapterModel;
     private GithubUserAdapterContact.View adapterView;
@@ -30,9 +33,9 @@ public class MainPresenter implements MainContact.Presenter, OnItemClickListener
     private CompositeDisposable compositeDisposable;
 
     @Override
-    public void attachView(MainContact.View view, MainService mainService) {
+    public void attachView(MainContact.View view, UserRepository userRepository) {
         this.view = view;
-        this.mainService = mainService;
+        this.userRepository = userRepository;
         this.compositeDisposable = new CompositeDisposable();
     }
 
@@ -55,22 +58,23 @@ public class MainPresenter implements MainContact.Presenter, OnItemClickListener
 
     /**
      * api요청 과정
-     * 1. network - service패키지에서 Api 통신을 담당하는 클래스 생성
+     * 1. model/api패키지에서 repository의 interface를 상속받아 Api 통신을 담당하는 클래스 생성
      * 2. 데이터 통신이 오래 걸릴 경우 - presenter에서 service패키지에서 service컴포넌트 생성
      * 3. presenter에서 Api 응답 결과 요청
-     * 4.
      */
     @Override
     public void requestGetGithubUsers() {
-        Disposable disposable = mainService.requestGetGithubUsers(new ApiCallback<Response<ArrayList<User>>>() {
+        Disposable disposable = userRepository.requestGetGithubUsers(new ApiCallback<Response<ArrayList<User>>>() {
             @Override
             public void onSuccess(Response<ArrayList<User>> model) {
                 adapterModel.addItems(model.body());
                 adapterView.notifyAdapter();
+                view.showToast("유저 목록을 성공적으로 조회했습니다.");
             }
 
             @Override
             public void onError(String msg) {
+                Log.e(TAG, msg);
                 view.showToast("유저 목록을 가져오지 못했습니다.");
             }
         });

@@ -1,11 +1,9 @@
-package com.example.choi.tapp.view.main.presenter;
+package com.example.choi.tapp.base.main.presenter;
 
 import android.content.Context;
 
-import com.example.choi.tapp.BasePresenter;
-import com.example.choi.tapp.BaseView;
 import com.example.choi.tapp.adapter.contact.GithubUserAdapterContact;
-import com.example.choi.tapp.network.service.MainService;
+import com.example.choi.tapp.model.repository.UserRepository;
 
 /**
  * Created by choi on 2017. 6. 8..
@@ -15,11 +13,12 @@ import com.example.choi.tapp.network.service.MainService;
 public interface MainContact {
 
     interface View {
+
         void showToast(String title);
     }
 
     interface Presenter {
-        void attachView(View view, MainService mainService);
+        void attachView(View view, UserRepository userRepository);
 
         void setAdapterModel(GithubUserAdapterContact.Model adapterModel);
 
