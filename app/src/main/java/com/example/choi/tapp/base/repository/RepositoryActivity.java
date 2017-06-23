@@ -1,0 +1,72 @@
+package com.example.choi.tapp.base.repository;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
+import com.example.choi.tapp.R;
+import com.example.choi.tapp.adapter.GithubRepositoryRecyclerAdapter;
+import com.example.choi.tapp.base.repository.presenter.RepositoryContact;
+import com.example.choi.tapp.base.repository.presenter.RepositoryPresenter;
+import com.example.choi.tapp.model.request.RepositoryApiRequest;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+/**
+ * Created by choi on 2017. 6. 22..
+ */
+
+public class RepositoryActivity extends AppCompatActivity implements RepositoryContact.View {
+
+    private static final String TAG = RepositoryActivity.class.getName();
+
+    private RepositoryPresenter repositoryPresenter;
+    private String userID;
+
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_repository);
+        ButterKnife.bind(this);
+
+        Intent intent = getIntent();
+        userID = intent.getExtras().getString("userID");
+
+        GithubRepositoryRecyclerAdapter githubRepositoryRecyclerAdapter = new GithubRepositoryRecyclerAdapter(this);
+        recyclerView.setAdapter(githubRepositoryRecyclerAdapter);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        repositoryPresenter = new RepositoryPresenter();
+        repositoryPresenter.attachView(this, new RepositoryApiRequest());
+        repositoryPresenter.setAdapterModel(githubRepositoryRecyclerAdapter);
+        repositoryPresenter.setAdapterView(githubRepositoryRecyclerAdapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        repositoryPresenter.requestGetGithubUsers(userID);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        repositoryPresenter.detachView();
+    }
+
+    @Override
+    public void showToast(String title) {
+        Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
+    }
+}

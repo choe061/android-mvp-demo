@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.example.choi.tapp.adapter.contact.GithubUserAdapterContact;
 import com.example.choi.tapp.model.domain.User;
-import com.example.choi.tapp.model.repository.UserRepository;
+import com.example.choi.tapp.model.api.UserApi;
 import com.example.choi.tapp.network.ApiCallback;
 import com.example.choi.tapp.widget.OnItemClickListener;
 
@@ -24,7 +24,7 @@ public class MainPresenter implements MainContact.Presenter, OnItemClickListener
 
     private static final String TAG = MainPresenter.class.getName();
 
-    private UserRepository userRepository;
+    private UserApi userApi;
     private MainContact.View view;          //데이터를 받아 view를 수정
 
     private GithubUserAdapterContact.Model adapterModel;
@@ -33,9 +33,9 @@ public class MainPresenter implements MainContact.Presenter, OnItemClickListener
     private CompositeDisposable compositeDisposable;
 
     @Override
-    public void attachView(MainContact.View view, UserRepository userRepository) {
+    public void attachView(MainContact.View view, UserApi userApi) {
         this.view = view;
-        this.userRepository = userRepository;
+        this.userApi = userApi;
         this.compositeDisposable = new CompositeDisposable();
     }
 
@@ -64,7 +64,7 @@ public class MainPresenter implements MainContact.Presenter, OnItemClickListener
      */
     @Override
     public void requestGetGithubUsers() {
-        Disposable disposable = userRepository.requestGetGithubUsers(new ApiCallback<Response<ArrayList<User>>>() {
+        Disposable disposable = userApi.requestGetGithubUsers(new ApiCallback<Response<ArrayList<User>>>() {
             @Override
             public void onSuccess(Response<ArrayList<User>> model) {
                 adapterModel.addItems(model.body());
@@ -82,6 +82,23 @@ public class MainPresenter implements MainContact.Presenter, OnItemClickListener
     }
 
     @Override
+    public void requestGetGithubUser(String userID) {
+        Disposable disposable = userApi.requestGetGithubUser(userID, new ApiCallback<Response<User>>() {
+            @Override
+            public void onSuccess(Response<User> model) {
+                Log.d(TAG, String.valueOf(model));
+                view.showDialog(model.body());
+            }
+
+            @Override
+            public void onError(String msg) {
+                view.showToast("유저 정보를 가져오지 못했습니다.");
+            }
+        });
+        compositeDisposable.add(disposable);
+    }
+
+    @Override
     public void loadItems(Context context, boolean isClear) {
 
     }
@@ -89,6 +106,6 @@ public class MainPresenter implements MainContact.Presenter, OnItemClickListener
     @Override
     public void onItemClick(int position) {
         User user = adapterModel.getUser(position);
-        view.showToast("유저 로그인 : " + user.getLogin());
+        requestGetGithubUser(user.getLogin());
     }
 }

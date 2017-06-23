@@ -1,4 +1,4 @@
-package com.example.choi.tapp.model.repository;
+package com.example.choi.tapp.model.api;
 
 import com.example.choi.tapp.model.domain.User;
 import com.example.choi.tapp.network.ApiCallback;
@@ -13,6 +13,7 @@ import retrofit2.Response;
  * User model에 대한 CRUD 기능을 선언하는 Interface 작성
  */
 
-public interface UserRepository {
+public interface UserApi {
     Disposable requestGetGithubUsers(ApiCallback<Response<ArrayList<User>>> callback);
+    Disposable requestGetGithubUser(String userID, ApiCallback<Response<User>> callback);
 }

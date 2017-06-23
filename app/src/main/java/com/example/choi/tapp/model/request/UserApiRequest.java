@@ -1,7 +1,7 @@
-package com.example.choi.tapp.model.api;
+package com.example.choi.tapp.model.request;
 
 import com.example.choi.tapp.model.domain.User;
-import com.example.choi.tapp.model.repository.UserRepository;
+import com.example.choi.tapp.model.api.UserApi;
 import com.example.choi.tapp.network.ApiCallback;
 import com.example.choi.tapp.network.NetModule;
 
@@ -17,11 +17,20 @@ import retrofit2.Response;
  * Created by choi on 2017. 6. 18..
  */
 
-public class UserApiRepository implements UserRepository {
+public class UserApiRequest implements UserApi {
+
     @Override
     public Disposable requestGetGithubUsers(ApiCallback<Response<ArrayList<User>>> callback) {
         Observable<Response<ArrayList<User>>> users = NetModule.getHttpService().getGithubUsers();
         return users.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(callback::onSuccess, throwable -> callback.onError(throwable.getMessage()));
+    }
+
+    @Override
+    public Disposable requestGetGithubUser(String userID, ApiCallback<Response<User>> callback) {
+        Observable<Response<User>> user = NetModule.getHttpService().getGithubUser(userID);
+        return user.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(callback::onSuccess, throwable -> callback.onError(throwable.getMessage()));
     }

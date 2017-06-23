@@ -3,7 +3,8 @@ package com.example.choi.tapp.base.main.presenter;
 import android.content.Context;
 
 import com.example.choi.tapp.adapter.contact.GithubUserAdapterContact;
-import com.example.choi.tapp.model.repository.UserRepository;
+import com.example.choi.tapp.model.api.UserApi;
+import com.example.choi.tapp.model.domain.User;
 
 /**
  * Created by choi on 2017. 6. 8..
@@ -15,10 +16,12 @@ public interface MainContact {
     interface View {
 
         void showToast(String title);
+
+        void showDialog(User user);
     }
 
     interface Presenter {
-        void attachView(View view, UserRepository userRepository);
+        void attachView(View view, UserApi userApi);
 
         void setAdapterModel(GithubUserAdapterContact.Model adapterModel);
 
@@ -27,6 +30,8 @@ public interface MainContact {
         void detachView();
 
         void requestGetGithubUsers();
+
+        void requestGetGithubUser(String userID);
 
         void loadItems(Context context, boolean isClear);
     }

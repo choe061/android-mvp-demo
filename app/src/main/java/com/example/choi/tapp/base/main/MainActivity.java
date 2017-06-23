@@ -1,6 +1,8 @@
 package com.example.choi.tapp.base.main;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +12,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.example.choi.tapp.R;
 import com.example.choi.tapp.adapter.GithubUserRecyclerAdapter;
-import com.example.choi.tapp.model.api.UserApiRepository;
+import com.example.choi.tapp.model.domain.User;
+import com.example.choi.tapp.model.request.UserApiRequest;
 import com.example.choi.tapp.base.main.presenter.MainContact;
 import com.example.choi.tapp.base.main.presenter.MainPresenter;
 
@@ -63,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements MainContact.View 
     private static final String TAG = MainActivity.class.getName();
 
     private MainPresenter mainPresenter;
+    private RequestManager requestManager;
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -73,14 +77,14 @@ public class MainActivity extends AppCompatActivity implements MainContact.View 
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        RequestManager requestManager = Glide.with(this);
+        requestManager = Glide.with(this);
         GithubUserRecyclerAdapter githubUserRecyclerAdapter = new GithubUserRecyclerAdapter(this, requestManager);
         recyclerView.setAdapter(githubUserRecyclerAdapter);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mainPresenter = new MainPresenter();
-        mainPresenter.attachView(this, new UserApiRepository());
+        mainPresenter.attachView(this, new UserApiRequest());
         mainPresenter.setAdapterModel(githubUserRecyclerAdapter);
         mainPresenter.setAdapterView(githubUserRecyclerAdapter);
     }
@@ -100,5 +104,34 @@ public class MainActivity extends AppCompatActivity implements MainContact.View 
     @Override
     public void showToast(String title) {
         Toast.makeText(this, title, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showDialog(User user) {
+        final UserDialog userDialog = new UserDialog(this, requestManager);
+//        View userInfoDialogView = getLayoutInflater().inflate(R.layout.activity_main_user_dialog, null);
+//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//        builder.setTitle(user.getLogin() + "님의 Repository에 들어가시겠습니까?")
+//                .setCancelable(true)
+//                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        userDialog.setDialogText(user);
+//                    }
+//                })
+//                .setNegativeButton("NO", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        userDialog.cancel();
+//                    }
+//                }).show();
+
+        userDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+            @Override
+            public void onShow(DialogInterface dialog) {
+                userDialog.setDialogText(user);
+            }
+        });
+        userDialog.show();
     }
 }
