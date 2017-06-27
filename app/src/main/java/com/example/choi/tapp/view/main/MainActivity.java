@@ -1,8 +1,7 @@
-package com.example.choi.tapp.base.main;
+package com.example.choi.tapp.view.main;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,14 +13,17 @@ import com.example.choi.tapp.R;
 import com.example.choi.tapp.adapter.GithubUserRecyclerAdapter;
 import com.example.choi.tapp.model.domain.User;
 import com.example.choi.tapp.model.request.UserApiRequest;
-import com.example.choi.tapp.base.main.presenter.MainContact;
-import com.example.choi.tapp.base.main.presenter.MainPresenter;
+import com.example.choi.tapp.view.main.presenter.MainContact;
+import com.example.choi.tapp.view.main.presenter.MainPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
  * 기본적인 MVP Pattern에 대해 학습
+ * 안드로이드의 MVC 패턴은 Controller역할을 하는 Activity(Fragment)가 View에 대한 직접적인 조작을 하게 되어
+ * Activity(Fragment)에 Controller와 View의 역할이 섞여 MVC의 구조에 어긋나는 문제가 생긴다.
+ *
  * 내용 : 1. Retrofit + RecyclerView = GitHub "/users" API를 연동
  *       2. 통신하여 받은 데이터를 RecyclerView로 보여주고 Item ClickListener를 달아준다
  *       3. Item 클릭 시 User의 상세정보에 해당하는 "/user/{id}" API를 연동하여 보여준다
@@ -109,23 +111,6 @@ public class MainActivity extends AppCompatActivity implements MainContact.View 
     @Override
     public void showDialog(User user) {
         final UserDialog userDialog = new UserDialog(this, requestManager);
-//        View userInfoDialogView = getLayoutInflater().inflate(R.layout.activity_main_user_dialog, null);
-//        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-//        builder.setTitle(user.getLogin() + "님의 Repository에 들어가시겠습니까?")
-//                .setCancelable(true)
-//                .setPositiveButton("YES", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        userDialog.setDialogText(user);
-//                    }
-//                })
-//                .setNegativeButton("NO", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        userDialog.cancel();
-//                    }
-//                }).show();
-
         userDialog.setOnShowListener(new DialogInterface.OnShowListener() {
             @Override
             public void onShow(DialogInterface dialog) {

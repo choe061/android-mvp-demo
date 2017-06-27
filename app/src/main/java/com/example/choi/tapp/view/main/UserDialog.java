@@ -1,19 +1,16 @@
-package com.example.choi.tapp.base.main;
+package com.example.choi.tapp.view.main;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.util.Log;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.RequestManager;
 import com.example.choi.tapp.R;
-import com.example.choi.tapp.base.repository.RepositoryActivity;
+import com.example.choi.tapp.view.repository.RepositoryActivity;
 import com.example.choi.tapp.model.domain.User;
 
 import butterknife.BindView;

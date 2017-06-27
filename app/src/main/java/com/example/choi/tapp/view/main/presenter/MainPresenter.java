@@ -1,4 +1,4 @@
-package com.example.choi.tapp.base.main.presenter;
+package com.example.choi.tapp.view.main.presenter;
 
 import android.content.Context;
 import android.util.Log;

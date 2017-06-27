@@ -1,4 +1,4 @@
-package com.example.choi.tapp.base.repository;
+package com.example.choi.tapp.view.repository;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,12 +8,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestManager;
 import com.example.choi.tapp.R;
 import com.example.choi.tapp.adapter.GithubRepositoryRecyclerAdapter;
-import com.example.choi.tapp.base.repository.presenter.RepositoryContact;
-import com.example.choi.tapp.base.repository.presenter.RepositoryPresenter;
+import com.example.choi.tapp.view.repository.presenter.RepositoryContact;
+import com.example.choi.tapp.view.repository.presenter.RepositoryPresenter;
 import com.example.choi.tapp.model.request.RepositoryApiRequest;
 
 import butterknife.BindView;

@@ -9,7 +9,9 @@ import java.util.ArrayList;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
@@ -25,6 +27,14 @@ public class UserApiRequest implements UserApi {
         return users.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(callback::onSuccess, throwable -> callback.onError(throwable.getMessage()));
+    }
+
+    //error 처리를 어디서
+    public Observable<ArrayList<User>> requestGetGithubUsers2() {
+        Observable<Response<ArrayList<User>>> users = NetModule.getHttpService().getGithubUsers();
+        return users.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map(Response::body);
     }
 
     @Override
