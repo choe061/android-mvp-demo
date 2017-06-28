@@ -1,4 +1,4 @@
-package com.example.choi.tapp.widget;
+package com.example.choi.tapp.util;
 
 /**
  * Created by choi on 2017. 6. 8..

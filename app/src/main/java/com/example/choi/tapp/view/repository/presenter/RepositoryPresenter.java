@@ -3,9 +3,9 @@ package com.example.choi.tapp.view.repository.presenter;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.choi.tapp.adapter.contact.GithubRepositoryAdapterContact;
-import com.example.choi.tapp.model.api.RepositoryApi;
+import com.example.choi.tapp.adapter.contact.BaseAdapterContact;
 import com.example.choi.tapp.model.domain.Repository;
+import com.example.choi.tapp.model.remote.api.RepositoryApi;
 import com.example.choi.tapp.network.ApiCallback;
 
 import java.util.ArrayList;
@@ -25,8 +25,8 @@ public class RepositoryPresenter implements RepositoryContact.Presenter {
     private RepositoryApi repositoryApi;
     private RepositoryContact.View view;
 
-    private GithubRepositoryAdapterContact.Model adapterModel;
-    private GithubRepositoryAdapterContact.View adapterView;
+    private BaseAdapterContact.Model adapterModel;
+    private BaseAdapterContact.View adapterView;
 
     private CompositeDisposable compositeDisposable;
 
@@ -38,12 +38,12 @@ public class RepositoryPresenter implements RepositoryContact.Presenter {
     }
 
     @Override
-    public void setAdapterModel(GithubRepositoryAdapterContact.Model adapterModel) {
+    public void setAdapterModel(BaseAdapterContact.Model adapterModel) {
         this.adapterModel = adapterModel;
     }
 
     @Override
-    public void setAdapterView(GithubRepositoryAdapterContact.View adapterView) {
+    public void setAdapterView(BaseAdapterContact.View adapterView) {
         this.adapterView = adapterView;
     }
 

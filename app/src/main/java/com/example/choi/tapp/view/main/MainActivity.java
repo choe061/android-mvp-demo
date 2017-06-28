@@ -12,7 +12,7 @@ import com.bumptech.glide.RequestManager;
 import com.example.choi.tapp.R;
 import com.example.choi.tapp.adapter.GithubUserRecyclerAdapter;
 import com.example.choi.tapp.model.domain.User;
-import com.example.choi.tapp.model.request.UserApiRequest;
+import com.example.choi.tapp.model.remote.request.UserApiRequest;
 import com.example.choi.tapp.view.main.presenter.MainContact;
 import com.example.choi.tapp.view.main.presenter.MainPresenter;
 
@@ -59,8 +59,8 @@ import butterknife.ButterKnife;
  *      5. Model : 데이터를 로컬 또는 서버에서 가져온다!!! (domain 정의와 다르다, 헷갈리지 말 것)
  *      6. Model -> Presenter : Model로부터 데이터를 통보받는다
  *      7. Presenter : 전달받은 데이터를 가공
- *      8. Presenter -> View : 가공한 데이터를 View에 전달
- *      9. View : Presenter로 전달받은 데이터로 View에서 UI를 갱신
+ *      8-1. Presenter -> View : 가공한 데이터를 View에 전달, 8-2. Presenter -> Adapter.Model : 데이터 전달
+ *      9-1. View : Presenter로 전달받은 데이터로 View에서 UI를 갱신, 9-2. Presenter -> Adapter.View : 갱신
  */
 
 public class MainActivity extends AppCompatActivity implements MainContact.View {

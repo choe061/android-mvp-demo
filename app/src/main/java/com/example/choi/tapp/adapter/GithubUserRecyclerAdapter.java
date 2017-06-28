@@ -10,10 +10,10 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.RequestManager;
 import com.example.choi.tapp.R;
-import com.example.choi.tapp.adapter.contact.GithubUserAdapterContact;
+import com.example.choi.tapp.adapter.contact.BaseAdapterContact;
 import com.example.choi.tapp.adapter.viewholder.GithubUserViewHolder;
 import com.example.choi.tapp.model.domain.User;
-import com.example.choi.tapp.widget.OnItemClickListener;
+import com.example.choi.tapp.util.OnItemClickListener;
 
 import java.util.ArrayList;
 
@@ -23,7 +23,7 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
  * Created by choi on 2017. 5. 25..
  */
 
-public class GithubUserRecyclerAdapter extends RecyclerView.Adapter<GithubUserViewHolder> implements GithubUserAdapterContact.Model, GithubUserAdapterContact.View {
+public class GithubUserRecyclerAdapter extends RecyclerView.Adapter<GithubUserViewHolder> implements BaseAdapterContact.Model<User>, BaseAdapterContact.View {
 
     private OnItemClickListener onItemClickListener;
     private ArrayList<User> users = new ArrayList<>();
@@ -91,7 +91,8 @@ public class GithubUserRecyclerAdapter extends RecyclerView.Adapter<GithubUserVi
     }
 
     @Override
-    public User getUser(int position) {
+    public User getItem(int position) {
         return users.get(position);
     }
+
 }

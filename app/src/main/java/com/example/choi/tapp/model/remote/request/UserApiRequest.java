@@ -1,7 +1,7 @@
-package com.example.choi.tapp.model.request;
+package com.example.choi.tapp.model.remote.request;
 
 import com.example.choi.tapp.model.domain.User;
-import com.example.choi.tapp.model.api.UserApi;
+import com.example.choi.tapp.model.remote.api.UserApi;
 import com.example.choi.tapp.network.ApiCallback;
 import com.example.choi.tapp.network.NetModule;
 
@@ -9,9 +9,7 @@ import java.util.ArrayList;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 

@@ -1,6 +1,6 @@
-package com.example.choi.tapp.model.request;
+package com.example.choi.tapp.model.remote.request;
 
-import com.example.choi.tapp.model.api.RepositoryApi;
+import com.example.choi.tapp.model.remote.api.RepositoryApi;
 import com.example.choi.tapp.model.domain.Repository;
 import com.example.choi.tapp.network.ApiCallback;
 import com.example.choi.tapp.network.NetModule;

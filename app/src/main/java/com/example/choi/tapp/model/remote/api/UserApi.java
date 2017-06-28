@@ -1,4 +1,4 @@
-package com.example.choi.tapp.model.api;
+package com.example.choi.tapp.model.remote.api;
 
 import com.example.choi.tapp.model.domain.User;
 import com.example.choi.tapp.network.ApiCallback;

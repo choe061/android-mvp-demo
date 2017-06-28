@@ -27,8 +27,6 @@ public class GithubUserViewHolder extends RecyclerView.ViewHolder {
 
     public GithubUserViewHolder(View itemView) {
         super(itemView);
-
         ButterKnife.bind(this, itemView);
-
     }
 }

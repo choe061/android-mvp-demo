@@ -12,7 +12,7 @@ import com.example.choi.tapp.R;
 import com.example.choi.tapp.adapter.GithubRepositoryRecyclerAdapter;
 import com.example.choi.tapp.view.repository.presenter.RepositoryContact;
 import com.example.choi.tapp.view.repository.presenter.RepositoryPresenter;
-import com.example.choi.tapp.model.request.RepositoryApiRequest;
+import com.example.choi.tapp.model.remote.request.RepositoryApiRequest;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

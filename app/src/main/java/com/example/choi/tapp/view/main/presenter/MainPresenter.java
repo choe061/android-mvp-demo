@@ -3,11 +3,11 @@ package com.example.choi.tapp.view.main.presenter;
 import android.content.Context;
 import android.util.Log;
 
-import com.example.choi.tapp.adapter.contact.GithubUserAdapterContact;
+import com.example.choi.tapp.adapter.contact.BaseAdapterContact;
 import com.example.choi.tapp.model.domain.User;
-import com.example.choi.tapp.model.api.UserApi;
+import com.example.choi.tapp.model.remote.api.UserApi;
 import com.example.choi.tapp.network.ApiCallback;
-import com.example.choi.tapp.widget.OnItemClickListener;
+import com.example.choi.tapp.util.OnItemClickListener;
 
 import java.util.ArrayList;
 
@@ -27,8 +27,8 @@ public class MainPresenter implements MainContact.Presenter, OnItemClickListener
     private UserApi userApi;
     private MainContact.View view;          //데이터를 받아 view를 수정
 
-    private GithubUserAdapterContact.Model adapterModel;
-    private GithubUserAdapterContact.View adapterView;
+    private BaseAdapterContact.Model adapterModel;
+    private BaseAdapterContact.View adapterView;
 
     private CompositeDisposable compositeDisposable;
 
@@ -40,12 +40,12 @@ public class MainPresenter implements MainContact.Presenter, OnItemClickListener
     }
 
     @Override
-    public void setAdapterModel(GithubUserAdapterContact.Model adapterModel) {
+    public void setAdapterModel(BaseAdapterContact.Model adapterModel) {
         this.adapterModel = adapterModel;
     }
 
     @Override
-    public void setAdapterView(GithubUserAdapterContact.View adapterView) {
+    public void setAdapterView(BaseAdapterContact.View adapterView) {
         this.adapterView = adapterView;
         this.adapterView.setOnClickListener(this);
     }
@@ -105,7 +105,7 @@ public class MainPresenter implements MainContact.Presenter, OnItemClickListener
 
     @Override
     public void onItemClick(int position) {
-        User user = adapterModel.getUser(position);
+        User user = (User) adapterModel.getItem(position);
         requestGetGithubUser(user.getLogin());
     }
 }

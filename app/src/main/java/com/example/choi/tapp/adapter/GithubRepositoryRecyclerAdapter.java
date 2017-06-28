@@ -6,13 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.bumptech.glide.RequestManager;
 import com.example.choi.tapp.R;
-import com.example.choi.tapp.adapter.contact.GithubRepositoryAdapterContact;
+import com.example.choi.tapp.adapter.contact.BaseAdapterContact;
 import com.example.choi.tapp.adapter.viewholder.GithubRepositoryViewHolder;
 import com.example.choi.tapp.model.domain.Repository;
-import com.example.choi.tapp.model.domain.User;
-import com.example.choi.tapp.widget.OnItemClickListener;
+import com.example.choi.tapp.util.OnItemClickListener;
 
 import java.util.ArrayList;
 
@@ -20,7 +18,7 @@ import java.util.ArrayList;
  * Created by choi on 2017. 6. 22..
  */
 
-public class GithubRepositoryRecyclerAdapter extends RecyclerView.Adapter<GithubRepositoryViewHolder> implements GithubRepositoryAdapterContact.View, GithubRepositoryAdapterContact.Model {
+public class GithubRepositoryRecyclerAdapter extends RecyclerView.Adapter<GithubRepositoryViewHolder> implements BaseAdapterContact.Model<Repository>, BaseAdapterContact.View {
 
     private OnItemClickListener onItemClickListener;
     private ArrayList<Repository> repositories = new ArrayList<>();
@@ -75,5 +73,10 @@ public class GithubRepositoryRecyclerAdapter extends RecyclerView.Adapter<Github
         if (repositories != null) {
             repositories.clear();
         }
+    }
+
+    @Override
+    public Repository getItem(int position) {
+        return repositories.get(position);
     }
 }
