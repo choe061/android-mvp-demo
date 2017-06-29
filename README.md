@@ -11,10 +11,10 @@ Android MVP Demo
 * Fragment가 android view인 경우 Activity는 Fragment와 Presenter를 생성하고, Fragment에서 View를 상속받아 구현
 
 #### 1.1 Model
-Data와 관련된 전반적인 처리를 Model에서 담당한다. domain클래스를 정의하거나 Presenter에서 데이터 요청이 오면 데이터를 로컬 또는 서버로부터 가져와 데이터를 넘겨준다.
+Data와 관련된 전반적인 처리를 Model에서 담당한다. domain클래스를 정의하거나 Presenter에서 데이터 요청이 오면 데이터를 로컬 또는 서버로부터 가져와 데이터를 넘겨준다. android-architecture에서는 Remote data source 부분을 Presenter가 아닌 Data Layer에 두고있다.
 
 #### 1.2 View
-사용자의 실질적인 이벤트가 발생하고, 이를 Presenter에 처리를 위임한다. 그렇기 때문에 데이터를 가공하거나 데이터를 가져오는 행위는 View가 아닌 Presenter에서 처리한다.
+사용자의 실질적인 이벤트가 발생하고, 이를 Presenter에 처리를 위임한다. 데이터를 가공하거나 데이터를 가져오는 행위는 View가 아닌 Presenter에서 처리한다.
 
 #### 1.3 Presenter
 View에서 전달받은 이벤트를 처리하고, 결과를 다시 View에 전달한다. 또는 Model에 요청하여 받은 Data를 View에 전달한다.
@@ -29,6 +29,6 @@ RecyclerView에서 사용하는 adapter는 화면(Activity)에 필요한 Data를
 4. Presenter -> Model : Presenter로부터 데이터를 요청받음
 5. Model : 서버 API와 통신하여 데이터를 가져옴
 6. Model -> Presenter : Model로부터 데이터를 받음
-7. Presenter : 받은 데이터를 가공
+7. Presenter : 받은 데이터를 가공 (RecyclerView는 8. Presenter -> Adapter.Model : 데이터를 전달, 9. Presenter -> Adapter.View : 뷰 갱신)
 8. Presenter -> View : 가공한 데이터를 View에 전달
 9. View : Presenter로부터 전달받은 데이터로 View에서 UI를 갱신

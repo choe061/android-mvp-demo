@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.example.choi.tapp.adapter.contact.BaseAdapterContact;
 import com.example.choi.tapp.model.domain.Repository;
-import com.example.choi.tapp.model.remote.api.RepositoryApi;
+import com.example.choi.tapp.model.repository.api.RepositoryApi;
 import com.example.choi.tapp.network.ApiCallback;
 
 import java.util.ArrayList;

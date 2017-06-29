@@ -2,7 +2,6 @@ package com.example.choi.tapp.view.main;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
@@ -12,7 +11,8 @@ import com.bumptech.glide.RequestManager;
 import com.example.choi.tapp.R;
 import com.example.choi.tapp.adapter.GithubUserRecyclerAdapter;
 import com.example.choi.tapp.model.domain.User;
-import com.example.choi.tapp.model.remote.request.UserApiRequest;
+import com.example.choi.tapp.model.repository.request.UserApiRequest;
+import com.example.choi.tapp.view.BaseActivity;
 import com.example.choi.tapp.view.main.presenter.MainContact;
 import com.example.choi.tapp.view.main.presenter.MainPresenter;
 
@@ -56,14 +56,14 @@ import butterknife.ButterKnife;
  *      2. View -> Presenter : Presenter로 이벤트 전달
  *      3. Presenter : 이벤트의 형태에 따라 캐시 데이터를 가져오거나, Model에 요청
  *      4. Presenter -> Model : Presenter에서 데이터를 요청받음
- *      5. Model : 데이터를 로컬 또는 서버에서 가져온다!!! (domain 정의와 다르다, 헷갈리지 말 것)
+ *      5. Model : 데이터를 로컬 또는 서버에서 가져온다
  *      6. Model -> Presenter : Model로부터 데이터를 통보받는다
  *      7. Presenter : 전달받은 데이터를 가공
  *      8-1. Presenter -> View : 가공한 데이터를 View에 전달, 8-2. Presenter -> Adapter.Model : 데이터 전달
  *      9-1. View : Presenter로 전달받은 데이터로 View에서 UI를 갱신, 9-2. Presenter -> Adapter.View : 갱신
  */
 
-public class MainActivity extends AppCompatActivity implements MainContact.View {
+public class MainActivity extends BaseActivity implements MainContact.View {
 
     private static final String TAG = MainActivity.class.getName();
 
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements MainContact.View 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mainPresenter = new MainPresenter();
-        mainPresenter.attachView(this, new UserApiRequest());
+        mainPresenter.attachView(this, new UserApiRequest(httpService));
         mainPresenter.setAdapterModel(githubUserRecyclerAdapter);
         mainPresenter.setAdapterView(githubUserRecyclerAdapter);
     }

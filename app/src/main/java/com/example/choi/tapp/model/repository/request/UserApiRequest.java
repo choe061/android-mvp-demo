@@ -1,9 +1,9 @@
-package com.example.choi.tapp.model.remote.request;
+package com.example.choi.tapp.model.repository.request;
 
 import com.example.choi.tapp.model.domain.User;
-import com.example.choi.tapp.model.remote.api.UserApi;
+import com.example.choi.tapp.model.repository.api.UserApi;
 import com.example.choi.tapp.network.ApiCallback;
-import com.example.choi.tapp.network.NetModule;
+import com.example.choi.tapp.network.HttpService;
 
 import java.util.ArrayList;
 
@@ -19,25 +19,23 @@ import retrofit2.Response;
 
 public class UserApiRequest implements UserApi {
 
+    private HttpService httpService;
+
+    public UserApiRequest(HttpService httpService) {
+        this.httpService = httpService;
+    }
+
     @Override
     public Disposable requestGetGithubUsers(ApiCallback<Response<ArrayList<User>>> callback) {
-        Observable<Response<ArrayList<User>>> users = NetModule.getHttpService().getGithubUsers();
+        Observable<Response<ArrayList<User>>> users = httpService.getGithubUsers();
         return users.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(callback::onSuccess, throwable -> callback.onError(throwable.getMessage()));
     }
 
-    //error 처리를 어디서
-    public Observable<ArrayList<User>> requestGetGithubUsers2() {
-        Observable<Response<ArrayList<User>>> users = NetModule.getHttpService().getGithubUsers();
-        return users.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(Response::body);
-    }
-
     @Override
     public Disposable requestGetGithubUser(String userID, ApiCallback<Response<User>> callback) {
-        Observable<Response<User>> user = NetModule.getHttpService().getGithubUser(userID);
+        Observable<Response<User>> user = httpService.getGithubUser(userID);
         return user.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(callback::onSuccess, throwable -> callback.onError(throwable.getMessage()));

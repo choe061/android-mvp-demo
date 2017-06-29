@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.example.choi.tapp.adapter.contact.BaseAdapterContact;
 import com.example.choi.tapp.model.domain.User;
-import com.example.choi.tapp.model.remote.api.UserApi;
+import com.example.choi.tapp.model.repository.api.UserApi;
 import com.example.choi.tapp.network.ApiCallback;
 import com.example.choi.tapp.util.OnItemClickListener;
 

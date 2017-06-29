@@ -3,16 +3,16 @@ package com.example.choi.tapp.view.repository;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.example.choi.tapp.R;
 import com.example.choi.tapp.adapter.GithubRepositoryRecyclerAdapter;
+import com.example.choi.tapp.model.repository.request.RepositoryApiRequest;
+import com.example.choi.tapp.view.BaseActivity;
 import com.example.choi.tapp.view.repository.presenter.RepositoryContact;
 import com.example.choi.tapp.view.repository.presenter.RepositoryPresenter;
-import com.example.choi.tapp.model.remote.request.RepositoryApiRequest;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,7 +21,7 @@ import butterknife.ButterKnife;
  * Created by choi on 2017. 6. 22..
  */
 
-public class RepositoryActivity extends AppCompatActivity implements RepositoryContact.View {
+public class RepositoryActivity extends BaseActivity implements RepositoryContact.View {
 
     private static final String TAG = RepositoryActivity.class.getName();
 
@@ -46,7 +46,7 @@ public class RepositoryActivity extends AppCompatActivity implements RepositoryC
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         repositoryPresenter = new RepositoryPresenter();
-        repositoryPresenter.attachView(this, new RepositoryApiRequest());
+        repositoryPresenter.attachView(this, new RepositoryApiRequest(httpService));
         repositoryPresenter.setAdapterModel(githubRepositoryRecyclerAdapter);
         repositoryPresenter.setAdapterView(githubRepositoryRecyclerAdapter);
     }
