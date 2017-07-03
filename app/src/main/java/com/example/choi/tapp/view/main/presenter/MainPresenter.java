@@ -62,6 +62,7 @@ public class MainPresenter implements MainContact.Presenter, OnItemClickListener
      * 2. 데이터 통신이 오래 걸릴 경우 - presenter에서 service패키지에서 service컴포넌트 생성
      * 3. presenter에서 Api 응답 결과 요청
      */
+    @SuppressWarnings("unchecked")
     @Override
     public void requestGetGithubUsers() {
         Disposable disposable = userApi.requestGetGithubUsers(new ApiCallback<Response<ArrayList<User>>>() {

@@ -1,16 +1,24 @@
 package com.example.choi.tapp.view;
 
+import com.example.choi.tapp.adapter.contact.BaseAdapterContact;
+
 /**
  * Created by choi on 2017. 6. 26..
  */
 
 public interface BaseContact {
 
-    interface BasePresenter<T> {
-        void start(T view);
+    interface BaseView {
+
+        void showToast(String title);
     }
 
-    interface BaseView<T> {
-        void setPresenter(T presenter);
+    interface BasePresenter {
+
+        void setAdapterModel(BaseAdapterContact.Model adapterModel);
+
+        void setAdapterView(BaseAdapterContact.View adapterView);
+
+        void detachView();
     }
 }

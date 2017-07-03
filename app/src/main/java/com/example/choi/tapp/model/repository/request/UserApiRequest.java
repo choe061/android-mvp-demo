@@ -15,6 +15,7 @@ import retrofit2.Response;
 
 /**
  * Created by choi on 2017. 6. 18..
+ * Disposable과 Callback Interface를 이용
  */
 
 public class UserApiRequest implements UserApi {

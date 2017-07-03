@@ -21,6 +21,7 @@ public interface MainContact {
     }
 
     interface Presenter {
+
         void attachView(View view, UserApi userApi);
 
         void setAdapterModel(BaseAdapterContact.Model adapterModel);

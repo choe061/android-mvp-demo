@@ -6,7 +6,6 @@ import android.util.Log;
 import com.example.choi.tapp.adapter.contact.BaseAdapterContact;
 import com.example.choi.tapp.model.domain.Repository;
 import com.example.choi.tapp.model.repository.api.RepositoryApi;
-import com.example.choi.tapp.network.ApiCallback;
 
 import java.util.ArrayList;
 
@@ -55,18 +54,34 @@ public class RepositoryPresenter implements RepositoryContact.Presenter {
 
     @Override
     public void requestGetGithubUsers(String userID) {
-        Disposable disposable = repositoryApi.requestGetUserRepository(userID, new ApiCallback<Response<ArrayList<Repository>>>() {
-            @Override
-            public void onSuccess(Response<ArrayList<Repository>> model) {
-                adapterModel.addItems(model.body());
-                adapterView.notifyAdapter();
-            }
+//        repositoryApi.requestGetUserRepository(userID).subscribe(new Observer() {
+//            @Override
+//            public void onSubscribe(@NonNull Disposable d) {
+//            }
+//
+//            @Override
+//            public void onNext(@NonNull Object o) {
+//                adapterModel.addItems(((Response<ArrayList<Repository>>) o).body());
+//                adapterView.notifyAdapter();
+//            }
+//
+//            @Override
+//            public void onError(@NonNull Throwable e) {
+//                Log.e(TAG, e.getMessage());
+//            }
+//
+//            @Override
+//            public void onComplete() {
+//            }
+//        });
 
-            @Override
-            public void onError(String msg) {
-                Log.e(TAG, msg);
-                view.showToast("유저의 저장소를 조회하지 못했습니다.");
-            }
+        @SuppressWarnings("unchecked")
+        Disposable disposable = repositoryApi.requestGetUserRepository(userID).subscribe(o -> {
+            adapterModel.addItems(((Response<ArrayList<Repository>>) o).body());
+            adapterView.notifyAdapter();
+        }, throwable -> {
+            Log.e(TAG, throwable.toString());
+            view.showToast("유저의 저장소를 조회하지 못했습니다.");
         });
         compositeDisposable.add(disposable);
     }
