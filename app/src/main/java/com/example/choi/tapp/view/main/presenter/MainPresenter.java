@@ -84,7 +84,7 @@ public class MainPresenter implements MainContact.Presenter, OnItemClickListener
 
     @Override
     public void requestGetGithubUser(String userID) {
-        Disposable disposable = userApi.requestGetGithubUser(userID, new ApiCallback<Response<User>>() {
+        userApi.requestGetGithubUser(userID, new ApiCallback<Response<User>>() {
             @Override
             public void onSuccess(Response<User> model) {
                 Log.d(TAG, String.valueOf(model));
@@ -96,7 +96,7 @@ public class MainPresenter implements MainContact.Presenter, OnItemClickListener
                 view.showToast("유저 정보를 가져오지 못했습니다.");
             }
         });
-        compositeDisposable.add(disposable);
+//        compositeDisposable.add(disposable);
     }
 
     @Override

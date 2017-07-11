@@ -35,9 +35,9 @@ public class UserApiRequest implements UserApi {
     }
 
     @Override
-    public Disposable requestGetGithubUser(String userID, ApiCallback<Response<User>> callback) {
+    public void requestGetGithubUser(String userID, ApiCallback<Response<User>> callback) {
         Observable<Response<User>> user = httpService.getGithubUser(userID);
-        return user.subscribeOn(Schedulers.newThread())
+        user.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(callback::onSuccess, throwable -> callback.onError(throwable.getMessage()));
     }

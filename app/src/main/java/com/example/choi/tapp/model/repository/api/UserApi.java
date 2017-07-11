@@ -15,5 +15,5 @@ import retrofit2.Response;
 
 public interface UserApi {
     Disposable requestGetGithubUsers(ApiCallback<Response<ArrayList<User>>> callback);
-    Disposable requestGetGithubUser(String userID, ApiCallback<Response<User>> callback);
+    void requestGetGithubUser(String userID, ApiCallback<Response<User>> callback);
 }
