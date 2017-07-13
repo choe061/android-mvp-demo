@@ -15,7 +15,8 @@ import retrofit2.Response;
 
 /**
  * Created by choi on 2017. 6. 18..
- * Disposable과 Callback Interface를 이용
+ * 1. Observable을 return 하거나
+ * 2. Callback Interface를 이용
  */
 
 public class UserApiRequest implements UserApi {
@@ -27,11 +28,8 @@ public class UserApiRequest implements UserApi {
     }
 
     @Override
-    public Disposable requestGetGithubUsers(ApiCallback<Response<ArrayList<User>>> callback) {
-        Observable<Response<ArrayList<User>>> users = httpService.getGithubUsers();
-        return users.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(callback::onSuccess, throwable -> callback.onError(throwable.getMessage()));
+    public Observable<Response<ArrayList<User>>> requestGetGithubUsers() {
+        return httpService.getGithubUsers();
     }
 
     @Override

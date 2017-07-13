@@ -26,8 +26,6 @@ public class RepositoryApiRequest implements RepositoryApi {
 
     @Override
     public Observable<Response<ArrayList<Repository>>> requestGetUserRepository(String userID) {
-        Observable<Response<ArrayList<Repository>>> repos = httpService.getUserRepository(userID);
-        return repos.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread());
+        return httpService.getUserRepository(userID);
     }
 }

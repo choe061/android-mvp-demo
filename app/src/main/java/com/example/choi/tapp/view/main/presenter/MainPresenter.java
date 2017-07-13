@@ -6,13 +6,17 @@ import android.util.Log;
 import com.example.choi.tapp.adapter.contact.BaseAdapterContact;
 import com.example.choi.tapp.model.domain.User;
 import com.example.choi.tapp.model.repository.api.UserApi;
+import com.example.choi.tapp.model.repository.request.UserApiRequest;
 import com.example.choi.tapp.network.ApiCallback;
+import com.example.choi.tapp.network.HttpService;
 import com.example.choi.tapp.util.OnItemClickListener;
 
 import java.util.ArrayList;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
 /**
@@ -33,9 +37,9 @@ public class MainPresenter implements MainContact.Presenter, OnItemClickListener
     private CompositeDisposable compositeDisposable;
 
     @Override
-    public void attachView(MainContact.View view, UserApi userApi) {
+    public void attachView(MainContact.View view, HttpService httpService) {
         this.view = view;
-        this.userApi = userApi;
+        this.userApi = new UserApiRequest(httpService);
         this.compositeDisposable = new CompositeDisposable();
     }
 
@@ -65,20 +69,17 @@ public class MainPresenter implements MainContact.Presenter, OnItemClickListener
     @SuppressWarnings("unchecked")
     @Override
     public void requestGetGithubUsers() {
-        Disposable disposable = userApi.requestGetGithubUsers(new ApiCallback<Response<ArrayList<User>>>() {
-            @Override
-            public void onSuccess(Response<ArrayList<User>> model) {
-                adapterModel.addItems(model.body());
-                adapterView.notifyAdapter();
-                view.showToast("유저 목록을 성공적으로 조회했습니다.");
-            }
-
-            @Override
-            public void onError(String msg) {
-                Log.e(TAG, msg);
-                view.showToast("유저 목록을 가져오지 못했습니다.");
-            }
-        });
+        Disposable disposable = userApi.requestGetGithubUsers()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+                    adapterModel.addItems(response.body());
+                    adapterView.notifyAdapter();
+                    view.showToast("유저 목록을 성공적으로 조회했습니다.");
+                }, throwable -> {
+                    Log.e(TAG, throwable.getMessage());
+                    view.showToast("유저 목록을 가져오지 못했습니다.");
+                });
         compositeDisposable.add(disposable);
     }
 
@@ -96,7 +97,6 @@ public class MainPresenter implements MainContact.Presenter, OnItemClickListener
                 view.showToast("유저 정보를 가져오지 못했습니다.");
             }
         });
-//        compositeDisposable.add(disposable);
     }
 
     @Override

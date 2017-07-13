@@ -6,11 +6,15 @@ import android.util.Log;
 import com.example.choi.tapp.adapter.contact.BaseAdapterContact;
 import com.example.choi.tapp.model.domain.Repository;
 import com.example.choi.tapp.model.repository.api.RepositoryApi;
+import com.example.choi.tapp.model.repository.request.RepositoryApiRequest;
+import com.example.choi.tapp.network.HttpService;
 
 import java.util.ArrayList;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
 /**
@@ -30,9 +34,9 @@ public class RepositoryPresenter implements RepositoryContact.Presenter {
     private CompositeDisposable compositeDisposable;
 
     @Override
-    public void attachView(RepositoryContact.View view, RepositoryApi repositoryApi) {
+    public void attachView(RepositoryContact.View view, HttpService httpService) {
         this.view = view;
-        this.repositoryApi = repositoryApi;
+        this.repositoryApi = new RepositoryApiRequest(httpService);
         this.compositeDisposable = new CompositeDisposable();
     }
 
@@ -52,37 +56,19 @@ public class RepositoryPresenter implements RepositoryContact.Presenter {
         compositeDisposable.dispose();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void requestGetGithubUsers(String userID) {
-//        repositoryApi.requestGetUserRepository(userID).subscribe(new Observer() {
-//            @Override
-//            public void onSubscribe(@NonNull Disposable d) {
-//            }
-//
-//            @Override
-//            public void onNext(@NonNull Object o) {
-//                adapterModel.addItems(((Response<ArrayList<Repository>>) o).body());
-//                adapterView.notifyAdapter();
-//            }
-//
-//            @Override
-//            public void onError(@NonNull Throwable e) {
-//                Log.e(TAG, e.getMessage());
-//            }
-//
-//            @Override
-//            public void onComplete() {
-//            }
-//        });
-
-        @SuppressWarnings("unchecked")
-        Disposable disposable = repositoryApi.requestGetUserRepository(userID).subscribe(o -> {
-            adapterModel.addItems(((Response<ArrayList<Repository>>) o).body());
-            adapterView.notifyAdapter();
-        }, throwable -> {
-            Log.e(TAG, throwable.toString());
-            view.showToast("유저의 저장소를 조회하지 못했습니다.");
-        });
+        Disposable disposable = repositoryApi.requestGetUserRepository(userID)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(response -> {
+                    adapterModel.addItems(response.body());
+                    adapterView.notifyAdapter();
+                }, throwable -> {
+                    Log.e(TAG, throwable.toString());
+                    view.showToast("유저의 저장소를 조회하지 못했습니다.");
+                });
         compositeDisposable.add(disposable);
     }
 

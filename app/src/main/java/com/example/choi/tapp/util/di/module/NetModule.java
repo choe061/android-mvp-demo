@@ -6,10 +6,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -36,11 +39,22 @@ public class NetModule {
 
     @Provides
     @Singleton
-    Retrofit provideRetrofit(Gson gson) {
+    OkHttpClient provideOkHttpClient() {
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+
+        builder.connectTimeout(60 * 1000, TimeUnit.MILLISECONDS)
+                .readTimeout(60 * 1000, TimeUnit.MILLISECONDS);
+        return builder.build();
+    }
+
+    @Provides
+    @Singleton
+    Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .client(okHttpClient)
                 .build();
         return retrofit;
     }

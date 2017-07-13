@@ -46,7 +46,7 @@ public class RepositoryActivity extends BaseActivity implements RepositoryContac
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         repositoryPresenter = new RepositoryPresenter();
-        repositoryPresenter.attachView(this, new RepositoryApiRequest(httpService));
+        repositoryPresenter.attachView(this, httpService);
         repositoryPresenter.setAdapterModel(githubRepositoryRecyclerAdapter);
         repositoryPresenter.setAdapterView(githubRepositoryRecyclerAdapter);
     }

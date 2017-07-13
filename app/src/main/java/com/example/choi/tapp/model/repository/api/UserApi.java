@@ -5,6 +5,7 @@ import com.example.choi.tapp.network.ApiCallback;
 
 import java.util.ArrayList;
 
+import io.reactivex.Observable;
 import io.reactivex.disposables.Disposable;
 import retrofit2.Response;
 
@@ -14,6 +15,6 @@ import retrofit2.Response;
  */
 
 public interface UserApi {
-    Disposable requestGetGithubUsers(ApiCallback<Response<ArrayList<User>>> callback);
+    Observable<Response<ArrayList<User>>> requestGetGithubUsers();
     void requestGetGithubUser(String userID, ApiCallback<Response<User>> callback);
 }

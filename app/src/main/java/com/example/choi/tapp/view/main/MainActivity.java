@@ -86,7 +86,7 @@ public class MainActivity extends BaseActivity implements MainContact.View {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mainPresenter = new MainPresenter();
-        mainPresenter.attachView(this, new UserApiRequest(httpService));
+        mainPresenter.attachView(this, httpService);
         mainPresenter.setAdapterModel(githubUserRecyclerAdapter);
         mainPresenter.setAdapterView(githubUserRecyclerAdapter);
     }
