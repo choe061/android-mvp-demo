@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import com.example.choi.tapp.R;
 import com.example.choi.tapp.adapter.GithubRepositoryRecyclerAdapter;
-import com.example.choi.tapp.model.repository.request.RepositoryApiRequest;
 import com.example.choi.tapp.view.BaseActivity;
 import com.example.choi.tapp.view.repository.presenter.RepositoryContact;
 import com.example.choi.tapp.view.repository.presenter.RepositoryPresenter;

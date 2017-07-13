@@ -3,7 +3,6 @@ package com.example.choi.tapp.view.repository.presenter;
 import android.content.Context;
 
 import com.example.choi.tapp.adapter.contact.BaseAdapterContact;
-import com.example.choi.tapp.model.repository.api.RepositoryApi;
 import com.example.choi.tapp.network.HttpService;
 
 /**

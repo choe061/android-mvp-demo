@@ -11,7 +11,6 @@ import com.bumptech.glide.RequestManager;
 import com.example.choi.tapp.R;
 import com.example.choi.tapp.adapter.GithubUserRecyclerAdapter;
 import com.example.choi.tapp.model.domain.User;
-import com.example.choi.tapp.model.repository.request.UserApiRequest;
 import com.example.choi.tapp.view.BaseActivity;
 import com.example.choi.tapp.view.main.presenter.MainContact;
 import com.example.choi.tapp.view.main.presenter.MainPresenter;

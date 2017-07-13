@@ -1,7 +1,6 @@
-package com.example.choi.tapp.model.repository.request;
+package com.example.choi.tapp.model.api;
 
 import com.example.choi.tapp.model.domain.User;
-import com.example.choi.tapp.model.repository.api.UserApi;
 import com.example.choi.tapp.network.ApiCallback;
 import com.example.choi.tapp.network.HttpService;
 
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
@@ -19,20 +17,18 @@ import retrofit2.Response;
  * 2. Callback Interface를 이용
  */
 
-public class UserApiRequest implements UserApi {
+public class UserApi {
 
     private HttpService httpService;
 
-    public UserApiRequest(HttpService httpService) {
+    public UserApi(HttpService httpService) {
         this.httpService = httpService;
     }
 
-    @Override
     public Observable<Response<ArrayList<User>>> requestGetGithubUsers() {
         return httpService.getGithubUsers();
     }
 
-    @Override
     public void requestGetGithubUser(String userID, ApiCallback<Response<User>> callback) {
         Observable<Response<User>> user = httpService.getGithubUser(userID);
         user.subscribeOn(Schedulers.newThread())

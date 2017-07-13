@@ -11,10 +11,10 @@ Android MVP Demo
 * Fragment가 android view인 경우 Activity는 Fragment와 Presenter를 생성하고, Fragment에서 View를 상속받아 구현
 
 #### 1.1 Model
-Data와 관련된 전반적인 처리를 Model에서 담당한다. domain클래스를 정의하거나 Presenter에서 데이터 요청이 오면 데이터를 로컬 또는 서버로부터 가져와 데이터를 넘겨준다. android-architecture에서는 Remote data source 부분을 Presenter가 아닌 Data Layer에 두고있다. 통신 후 Presenter로 데이터를 반환하는 방법 Handler, AsyncTask, Callback, Rx Observer 4가지 중 여기서는 Rx와 Callback Interface를 사용함.
+Data와 관련된 전반적인 처리를 Model에서 담당한다. domain클래스를 정의하거나 Presenter에서 데이터 요청이 오면 데이터를 로컬 또는 서버로부터 가져와 데이터를 넘겨준다. android-architecture에서는 Local이나 Remote Repository로부터 데이터를 가져오는 부분을 Presenter가 아닌 Data Layer에 두고있다. 통신 후 Presenter로 데이터를 반환하는 방법 Handler, AsyncTask, Callback, Rx Observer 4가지 중 여기서는 Observable return 방식과 Callback Interface 방식을 사용했다.
 
 #### 1.2 View
-사용자의 실질적인 이벤트가 발생하고, 이를 Presenter에 처리를 위임한다. 데이터를 가공하거나 데이터를 가져오는 행위는 View가 아닌 Presenter에서 처리한다.
+사용자의 실질적인 이벤트가 발생하고, 이를 Presenter에 처리를 위임한다. 데이터를 가공하거나 데이터를 가져오는 행위는 View가 아닌 Presenter에서 처리한다. View와 Model에서는 서로에 대한 레퍼런스를 가지면 안된다.(서로의 존재를 모른다) Presenter를 통해서 데이터를 요청하고 반환한다.
 
 #### 1.3 Presenter
 View에서 전달받은 이벤트를 처리하고, 결과를 다시 View에 전달한다. 또는 Model에 요청하여 받은 Data를 View에 전달한다.

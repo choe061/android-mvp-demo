@@ -4,18 +4,13 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.choi.tapp.adapter.contact.BaseAdapterContact;
-import com.example.choi.tapp.model.domain.Repository;
-import com.example.choi.tapp.model.repository.api.RepositoryApi;
-import com.example.choi.tapp.model.repository.request.RepositoryApiRequest;
+import com.example.choi.tapp.model.api.RepositoryApi;
 import com.example.choi.tapp.network.HttpService;
-
-import java.util.ArrayList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Response;
 
 /**
  * Created by choi on 2017. 6. 22..
@@ -36,7 +31,7 @@ public class RepositoryPresenter implements RepositoryContact.Presenter {
     @Override
     public void attachView(RepositoryContact.View view, HttpService httpService) {
         this.view = view;
-        this.repositoryApi = new RepositoryApiRequest(httpService);
+        this.repositoryApi = new RepositoryApi(httpService);
         this.compositeDisposable = new CompositeDisposable();
     }
 

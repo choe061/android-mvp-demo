@@ -5,13 +5,10 @@ import android.util.Log;
 
 import com.example.choi.tapp.adapter.contact.BaseAdapterContact;
 import com.example.choi.tapp.model.domain.User;
-import com.example.choi.tapp.model.repository.api.UserApi;
-import com.example.choi.tapp.model.repository.request.UserApiRequest;
+import com.example.choi.tapp.model.api.UserApi;
 import com.example.choi.tapp.network.ApiCallback;
 import com.example.choi.tapp.network.HttpService;
 import com.example.choi.tapp.util.OnItemClickListener;
-
-import java.util.ArrayList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -39,7 +36,7 @@ public class MainPresenter implements MainContact.Presenter, OnItemClickListener
     @Override
     public void attachView(MainContact.View view, HttpService httpService) {
         this.view = view;
-        this.userApi = new UserApiRequest(httpService);
+        this.userApi = new UserApi(httpService);
         this.compositeDisposable = new CompositeDisposable();
     }
 
