@@ -1,4 +1,4 @@
-package com.example.choi.tapp.view.repository;
+package com.example.choi.tapp.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,9 +9,9 @@ import android.widget.Toast;
 
 import com.example.choi.tapp.R;
 import com.example.choi.tapp.adapter.GithubRepositoryRecyclerAdapter;
-import com.example.choi.tapp.view.BaseActivity;
-import com.example.choi.tapp.view.repository.presenter.RepositoryContact;
-import com.example.choi.tapp.view.repository.presenter.RepositoryPresenter;
+import com.example.choi.tapp.presenter.contact.RepositoryContact;
+import com.example.choi.tapp.presenter.RepositoryPresenter;
+import com.example.choi.tapp.view.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

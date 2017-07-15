@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Response;
 
@@ -29,9 +30,9 @@ public class UserApi {
         return httpService.getGithubUsers();
     }
 
-    public void requestGetGithubUser(String userID, ApiCallback<Response<User>> callback) {
+    public Disposable requestGetGithubUser(String userID, ApiCallback<Response<User>> callback) {
         Observable<Response<User>> user = httpService.getGithubUser(userID);
-        user.subscribeOn(Schedulers.newThread())
+        return user.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(callback::onSuccess, throwable -> callback.onError(throwable.getMessage()));
     }

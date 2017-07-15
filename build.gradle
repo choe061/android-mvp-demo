@@ -24,5 +24,10 @@ task clean(type: Delete) {
 }
 
 ext {
-    daggerVersion = '2.7'
+    buildToolsVersion = "25.0.2"
+    supportLibVersion = "25.3.1"
+    retrofitVersion = "2.3.0"
+    butterknifeVersion = "8.5.1"
+    espressoVersion = "2.2.2"
+    daggerVersion = "2.8"
 }

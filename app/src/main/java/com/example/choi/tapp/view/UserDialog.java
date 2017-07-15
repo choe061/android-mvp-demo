@@ -1,4 +1,4 @@
-package com.example.choi.tapp.view.main;
+package com.example.choi.tapp.view;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.RequestManager;
 import com.example.choi.tapp.R;
-import com.example.choi.tapp.view.repository.RepositoryActivity;
 import com.example.choi.tapp.model.domain.User;
 
 import butterknife.BindView;

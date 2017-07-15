@@ -1,4 +1,4 @@
-package com.example.choi.tapp.view;
+package com.example.choi.tapp.view.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

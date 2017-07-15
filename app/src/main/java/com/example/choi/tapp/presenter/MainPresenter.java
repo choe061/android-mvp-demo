@@ -1,4 +1,4 @@
-package com.example.choi.tapp.view.main.presenter;
+package com.example.choi.tapp.presenter;
 
 import android.content.Context;
 import android.util.Log;
@@ -8,6 +8,7 @@ import com.example.choi.tapp.model.domain.User;
 import com.example.choi.tapp.model.api.UserApi;
 import com.example.choi.tapp.network.ApiCallback;
 import com.example.choi.tapp.network.HttpService;
+import com.example.choi.tapp.presenter.contact.MainContact;
 import com.example.choi.tapp.util.OnItemClickListener;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -55,14 +56,9 @@ public class MainPresenter implements MainContact.Presenter, OnItemClickListener
     public void detachView() {
         view = null;
         compositeDisposable.dispose();
+        //명시적으로 구독을 종료하지 않으면 메모리릭이 발생할 수도 있다
     }
 
-    /**
-     * api요청 과정
-     * 1. model/api패키지에서 repository의 interface를 상속받아 Api 통신을 담당하는 클래스 생성
-     * 2. 데이터 통신이 오래 걸릴 경우 - presenter에서 service패키지에서 service컴포넌트 생성
-     * 3. presenter에서 Api 응답 결과 요청
-     */
     @SuppressWarnings("unchecked")
     @Override
     public void requestGetGithubUsers() {
@@ -78,11 +74,12 @@ public class MainPresenter implements MainContact.Presenter, OnItemClickListener
                     view.showToast("유저 목록을 가져오지 못했습니다.");
                 });
         compositeDisposable.add(disposable);
+        //CompositeDisposable에 넣어 관리하면 데이터 구독을 원할때 끊을 수 있다
     }
 
     @Override
     public void requestGetGithubUser(String userID) {
-        userApi.requestGetGithubUser(userID, new ApiCallback<Response<User>>() {
+        Disposable disposable = userApi.requestGetGithubUser(userID, new ApiCallback<Response<User>>() {
             @Override
             public void onSuccess(Response<User> model) {
                 Log.d(TAG, String.valueOf(model));
@@ -94,6 +91,7 @@ public class MainPresenter implements MainContact.Presenter, OnItemClickListener
                 view.showToast("유저 정보를 가져오지 못했습니다.");
             }
         });
+        compositeDisposable.add(disposable);
     }
 
     @Override

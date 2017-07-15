@@ -1,7 +1,7 @@
 package com.example.choi.tapp.util.di;
 
 import com.example.choi.tapp.util.di.module.NetModule;
-import com.example.choi.tapp.view.BaseActivity;
+import com.example.choi.tapp.view.base.BaseActivity;
 
 import javax.inject.Singleton;
 

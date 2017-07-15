@@ -1,4 +1,4 @@
-package com.example.choi.tapp.view.repository.presenter;
+package com.example.choi.tapp.presenter;
 
 import android.content.Context;
 import android.util.Log;
@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.choi.tapp.adapter.contact.BaseAdapterContact;
 import com.example.choi.tapp.model.api.RepositoryApi;
 import com.example.choi.tapp.network.HttpService;
+import com.example.choi.tapp.presenter.contact.RepositoryContact;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;

@@ -1,4 +1,4 @@
-package com.example.choi.tapp.view.main;
+package com.example.choi.tapp.view;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -11,9 +11,9 @@ import com.bumptech.glide.RequestManager;
 import com.example.choi.tapp.R;
 import com.example.choi.tapp.adapter.GithubUserRecyclerAdapter;
 import com.example.choi.tapp.model.domain.User;
-import com.example.choi.tapp.view.BaseActivity;
-import com.example.choi.tapp.view.main.presenter.MainContact;
-import com.example.choi.tapp.view.main.presenter.MainPresenter;
+import com.example.choi.tapp.presenter.contact.MainContact;
+import com.example.choi.tapp.presenter.MainPresenter;
+import com.example.choi.tapp.view.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

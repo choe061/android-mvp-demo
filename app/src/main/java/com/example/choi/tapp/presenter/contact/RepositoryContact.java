@@ -1,4 +1,4 @@
-package com.example.choi.tapp.view.repository.presenter;
+package com.example.choi.tapp.presenter.contact;
 
 import android.content.Context;
 

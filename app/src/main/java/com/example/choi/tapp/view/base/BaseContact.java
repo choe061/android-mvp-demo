@@ -1,4 +1,4 @@
-package com.example.choi.tapp.view;
+package com.example.choi.tapp.view.base;
 
 import com.example.choi.tapp.adapter.contact.BaseAdapterContact;
 
