@@ -4,6 +4,10 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -117,5 +121,27 @@ public class MainActivity extends BaseActivity implements MainContact.View {
             }
         });
         userDialog.show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        MenuItem searchMenuItem = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView) searchMenuItem.getActionView();
+        searchView.setQueryHint(getString(R.string.search_title));
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Log.d(TAG, "Input Query - "+query);
+                mainPresenter.requestGetGithubUser(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">mvpApp</string>
+    <string name="search_title">아이디를 입력하세요.</string>
 </resources>
