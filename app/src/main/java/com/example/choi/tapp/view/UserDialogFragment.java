@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -33,7 +32,6 @@ import jp.wasabeef.glide.transformations.CropCircleTransformation;
 public class UserDialogFragment extends DialogFragment {
     private final String TAG = UserDialogFragment.class.getName();
     private DataProvider dataProvider;
-    private String userID;
     private User user;
 
     @BindView(R.id.profile_img) ImageView profile_img;
@@ -93,7 +91,6 @@ public class UserDialogFragment extends DialogFragment {
     }
 
     private void setView() {
-        userID = user.getLogin();
         Glide.with(getContext())
                 .load(user.getAvatar_url())
                 .placeholder(R.drawable.default_profile_img)
@@ -109,7 +106,7 @@ public class UserDialogFragment extends DialogFragment {
     }
 
     public String getUserID() {
-        return userID;
+        return user.getLogin();
     }
 
     @Override

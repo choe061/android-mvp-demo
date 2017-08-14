@@ -79,11 +79,9 @@ public class MainPresenter implements MainContact.Presenter, OnItemClickListener
 
     @Override
     public void requestGetGithubUser(String userID) {
-        Log.d(TAG, "requestGetGithubUser() "+userID);
         Disposable disposable = userApi.requestGetGithubUser(userID, new ApiCallback<Response<User>>() {
             @Override
             public void onSuccess(Response<User> model) {
-                Log.d(TAG, String.valueOf(model));
                 view.showDialog(model.body());
             }
 
