@@ -47,7 +47,7 @@ public class GithubUserRecyclerAdapter extends RecyclerView.Adapter<GithubUserVi
     public void onBindViewHolder(GithubUserViewHolder holder, int position) {
         try {
             User user = users.get(position);
-            Log.e("img url", user.getAvatar_url() + ", id : " + user.getId() + ", login : " + user.getLogin());
+            Log.d("img url", user.getAvatar_url() + ", id : " + user.getId() + ", login : " + user.getLogin());
             requestManager.load(user.getAvatar_url())
                     .placeholder(R.drawable.default_profile_img)
                     .bitmapTransform(new CropCircleTransformation(context))

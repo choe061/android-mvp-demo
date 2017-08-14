@@ -15,7 +15,7 @@ import retrofit2.Retrofit;
  * Created by choi on 2017. 6. 29..
  */
 
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     @Inject
     Retrofit retrofit;

@@ -1,6 +1,6 @@
 package com.example.choi.tapp.view;
 
-import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,8 +15,9 @@ import com.bumptech.glide.RequestManager;
 import com.example.choi.tapp.R;
 import com.example.choi.tapp.adapter.GithubUserRecyclerAdapter;
 import com.example.choi.tapp.model.domain.User;
-import com.example.choi.tapp.presenter.contact.MainContact;
 import com.example.choi.tapp.presenter.MainPresenter;
+import com.example.choi.tapp.presenter.contact.MainContact;
+import com.example.choi.tapp.util.DataProvider;
 import com.example.choi.tapp.view.base.BaseActivity;
 
 import butterknife.BindView;
@@ -66,7 +67,7 @@ import butterknife.ButterKnife;
  *      9-1. View : Presenter로 전달받은 데이터로 View에서 UI를 갱신, 9-2. Presenter -> Adapter.View : 갱신
  */
 
-public class MainActivity extends BaseActivity implements MainContact.View {
+public class MainActivity extends BaseActivity implements MainContact.View, DataProvider {
 
     private static final String TAG = MainActivity.class.getName();
 
@@ -113,14 +114,12 @@ public class MainActivity extends BaseActivity implements MainContact.View {
 
     @Override
     public void showDialog(User user) {
-        final UserDialog userDialog = new UserDialog(this, requestManager);
-        userDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-            @Override
-            public void onShow(DialogInterface dialog) {
-                userDialog.setDialogText(user);
-            }
-        });
-        userDialog.show();
+        UserDialogFragment dialog = new UserDialogFragment();
+        Bundle args = new Bundle();
+
+        args.putParcelable("user", user);
+        dialog.setArguments(args);
+        dialog.show(getSupportFragmentManager(), "USER");
     }
 
     @Override
@@ -143,5 +142,13 @@ public class MainActivity extends BaseActivity implements MainContact.View {
             }
         });
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public void onDataReceived(Object object) {
+        String userID = ((UserDialogFragment) object).getUserID();
+        Intent intent = new Intent(this, RepositoryActivity.class);
+        intent.putExtra("userID", userID);
+        startActivity(intent);
     }
 }
